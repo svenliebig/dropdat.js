@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='description' content=''><meta name='author' content=''>
+    <link rel='stylesheet' href='style.css'>
+    <script src="droparea.js"></script>
+</head>
+<body> 
+    <div id="svens_droparea">
+    </div>
+
+    <script>
+    var test = new Droparea("svens_droparea", function(files) { console.log(files[0].type) }, {"color": "#ff0000"})
+    </script>
+</body>
+</html>

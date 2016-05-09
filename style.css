@@ -1,0 +1,11 @@
+body {
+  background: aliceblue;
+}
+
+html {
+}
+
+#svens_droparea {
+  background: yellow;
+  height: 700px;
+}
