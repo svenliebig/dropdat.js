@@ -41,6 +41,23 @@ The last parameter is an options array with initial values.
 ```
 // options with the initial values
 var options = {
-    "color": "white";
+    'color'			: 'black',
+	'bgColor'		: 'white',
+	'hide'			: false,
+	'initialOpacity': '0',
+	'flowingOpacity': '0.4',
+	'borderRadius'	: '40px',
+	'initialTop'	: '10px',
+	'initialBottom'	: '10px',
+	'initialLeft'	: '10px',
+	'initialRight'	: '10px',
+	'hoveredTop'	: '40px',
+	'hoveredBottom'	: '40px',
+	'hoveredLeft'	: '40px',
+	'hoveredRight'	: '40px',
+	'text'			: '',
+	'textColor'		: 'black',
+	'fontSize'		: '35px',
+	'fontFamily'	: 'sans-serif'
 }
 ```

@@ -11,21 +11,35 @@ function Droparea(element_id, filecallback, options) {
 		console.error(element_id + " is no div element.");
 		return;
 	}
-	if(options == undefined) {
+	if(options === undefined) {
 		options = {};
 	}
 	if(typeof filecallback != "function") {
 		this.callback = function() {
 			console.log("Test Callback");
-		}
+		};
 	} else {
 		this.callback = filecallback;
 	}
 
-	this.color = (options.color != undefined ? options.color : "white");
-	this.initialOpacity = (options.initOpacity != undefined ? options.initOpacity : "0");
-	this.hide = (options.hide != undefined ? options.hide : true);
-	this.flowingOpacity = (options.flowOpacity != undefined ? options.flowOpacity : "0.4");
+	this.bgColor 		= (options.backgroundColor !== undefined ? options.backgroundColor : "white");
+	this.hide 			= (options.hide !== undefined ? options.hide : true);
+	this.initialOpacity = (options.initOpacity !== undefined ? options.initOpacity : "0");
+	this.flowingOpacity = (options.flowOpacity !== undefined ? options.flowOpacity : "0.4");
+	this.borderRadius	= (options.borderRadius !== undefined ? options.borderRadius : "40px");
+	this.initialTop		= (options.initialTop !== undefined ? options.initialTop : "10px");
+	this.initialBottom	= (options.initialBottom !== undefined ? options.initialBottom : "10px");
+	this.initialLeft	= (options.initialLeft !== undefined ? options.initialLeft : "10px");
+	this.initialRight	= (options.initialRight !== undefined ? options.initialRight : "10px");
+	this.hoveredTop		= (options.hoveredTop !== undefined ? options.hoveredTop : "40px");
+	this.hoveredBottom	= (options.hoveredBottom !== undefined ? options.hoveredBottom : "40px");
+	this.hoveredLeft	= (options.hoveredLeft !== undefined ? options.hoveredLeft : "40px");
+	this.hoveredRight	= (options.hoveredRight !== undefined ? options.hoveredRight : "40px");
+	this.text			= (options.text !== undefined ? options.text : "");
+	this.textColor		= (options.textColor !== undefined ? options.textColor : "black");
+	this.fontSize		= (options.fontSize !== undefined ? options.fontSize : "35px");
+	this.fontFamily		= (options.fontFamily !== undefined ? options.fontFamily : "sans-serif");
+
 	this.entered = 0;
 
 	// Create the Form elements and stuff
@@ -33,46 +47,55 @@ function Droparea(element_id, filecallback, options) {
 	this.element.style.position = "relative";
 	this.element.style.zIndex = "1";
 
-	this.FormElement = document.createElement("form"); 
-	this.FormElement.id = "droparea_form";
-	this.FormElement.method = "post";
-	this.FormElement.enctype = "multipart/form-data";
-    this.FormElement.style.transition = "all 0.5s ease";
-    this.FormElement.style.position = "absolute";
-    this.FormElement.style.opacity = this.initialOpacity;
-    this.FormElement.style.background = this.color;
-    this.FormElement.style.zIndex = "5";
-    this.FormElement.style.borderRadius = "40px";
-    this.FormElement.style.bottom = "10px";
-    this.FormElement.style.top = "10px";
-    this.FormElement.style.left = "10px";
-    this.FormElement.style.right = "10px";
-    this.FormElement.style.textAlign = "center";
-    this.FormElement.style.display = this.hide == true ? 'none' : 'block';
+	/* Form Element */
+	this.FormElement 					= document.createElement("form"); 
+    this.FormElement.style.zIndex 		= "5";
+	this.FormElement.id 				= "droparea_form";
+	this.FormElement.method 			= "post";
+	this.FormElement.enctype 			= "multipart/form-data";
+    this.FormElement.style.position 	= "absolute";
+    this.FormElement.style.transition 	= "all 0.5s ease";
+    this.FormElement.style.textAlign 	= "center";
+    this.FormElement.style.background 	= this.bgColor;
+    this.FormElement.style.opacity 		= this.initialOpacity;
+    this.FormElement.style.borderRadius = this.borderRadius;
+    this.FormElement.style.bottom 		= this.hoveredBottom;
+    this.FormElement.style.top 			= this.hoveredTop;
+    this.FormElement.style.left 		= this.hoveredLeft;
+    this.FormElement.style.right 		= this.hoveredRight;
+    this.FormElement.style.display 		= this.hide === true ? 'none' : 'block';
 
-	var InputElement = document.createElement("input");
-	InputElement.type = "file";
-	InputElement.id = "droparea_file_input";
-	InputElement.style.position = "absolute";
-    InputElement.style.height = "100%";
-    InputElement.style.width = "100%";
-    InputElement.style.opacity = "0";
-    InputElement.style.bottom = "0";
-    InputElement.style.top = "0";
-    InputElement.style.left = "0";
-    InputElement.style.right = "0";
+	/* Input Element */
+	var InputElement 				= document.createElement("input");
+	InputElement.type 				= "file";
+	InputElement.id 				= "droparea_file_input";
+	InputElement.style.position 	= "absolute";
+    InputElement.style.height 		= "100%";
+    InputElement.style.width 		= "100%";
+    InputElement.style.opacity 		= "0";
+    InputElement.style.bottom 		= "0";
+    InputElement.style.top 			= "0";
+    InputElement.style.left 		= "0";
+    InputElement.style.right 		= "0";
 
-	var SpanElement = document.createElement("span");
-	SpanElement.innerHTML = "test";
-	SpanElement.style.position = "relative";
-    SpanElement.style.display = "block";
-    SpanElement.style.zIndex = "-1";
-    SpanElement.style.fontSize = "35px";
-    SpanElement.style.fontFamily = "sans-serif";
-    SpanElement.style.marginTop = ((this.element.getClientRects()[0].height / 2) - 55) + "px";
+	/* Span Element */
+	this.SpanElement 						= document.createElement("span");
+    this.SpanElement.style.position 		= "absolute";
+    this.SpanElement.style.display 			= "table-cell";
+    this.SpanElement.style.textAlign		= 'center';
+    this.SpanElement.style.verticalAlign	= 'middle';
+    this.SpanElement.style.height 			= "100%";
+    this.SpanElement.style.width 			= "100%";
+    this.SpanElement.style.zIndex 			= "-1";
+    this.SpanElement.style.transition 		= "all 0.5s ease";
+	this.SpanElement.innerHTML 				= this.text;
+    this.SpanElement.style.fontSize 		= this.fontSize;
+    this.SpanElement.style.color 			= this.textColor;
+    this.SpanElement.style.fontFamily 		= this.fontFamily;
+    this.SpanElement.style.marginTop 		= ((this.element.getClientRects()[0].height / 2) - 55) + "px";
 
 	this.FormElement.appendChild(InputElement);
-	this.FormElement.appendChild(SpanElement);
+	this.FormElement.appendChild(this.SpanElement);
 	this.element.appendChild(this.FormElement); 
 
 	// Event Listeners
@@ -91,59 +114,74 @@ function Droparea(element_id, filecallback, options) {
 }
 
 Droparea.prototype.IsElement = function() {
-	return this.element != null;
-}
+	return this.element !== null;
+};
 
 Droparea.prototype.IsDivElement = function() {
 	return this.element.tagName == "DIV";
-}
+};
 
 Droparea.DragEnter = function(event, self) {
 	console.log("enter");
 	if (event.dataTransfer.types) {
-		for (var i = 0; i < event.dataTransfer.types.length; i++) {
-			if (event.dataTransfer.types[i] == "Files") {
+		if (event.dataTransfer.files.length == 1) {
+			if (event.dataTransfer.types[0] == "Files") {
 				clearTimeout(self.DisplayTimeout);
 				self.entered++;
+				self.SpanElement.innerHTML = (self.text === "" ? event.dataTransfer.files[0].type : self.text);
 				self.FormElement.style.display='block'; 
 				setTimeout(function() {
-					self.FormElement.style.top = "40px";
-					self.FormElement.style.bottom = "40px";
-					self.FormElement.style.left = "40px";
-					self.FormElement.style.right = "40px";
+					self.FormElement.style.top = self.initialTop;
+					self.FormElement.style.bottom = self.initialBottom;
+					self.FormElement.style.left = self.initialLeft;
+					self.FormElement.style.right = self.initialRight;
+					self.FormElement.style.opacity = self.flowingOpacity;
+				}, 1);
+			}
+		} else {
+			if (event.dataTransfer.types[0] == "Files") {
+				clearTimeout(self.DisplayTimeout);
+				self.entered++;
+				self.SpanElement.innerHTML = (self.text === "" ? "Multiple Files" : self.text);
+				self.FormElement.style.display='block'; 
+				setTimeout(function() {
+					self.FormElement.style.top = self.initialTop;
+					self.FormElement.style.bottom = self.initialBottom;
+					self.FormElement.style.left = self.initialLeft;
+					self.FormElement.style.right = self.initialRight;
 					self.FormElement.style.opacity = self.flowingOpacity;
 				}, 1);
 			}
 		}
 	}
-}
+};
 
 Droparea.DragLeave = function(event, self) {
 	console.log("leave");
 	self.entered--;
 		if (!self.entered) 
 			self.DisplayTimeout = setTimeout(function() {
-				self.FormElement.style.display='none'; 
+				self.FormElement.style.display = self.hide === true ? 'none' : 'block';
 			}, 500);
 
-		self.FormElement.style.top = "10px";
-		self.FormElement.style.bottom = "10px";
-		self.FormElement.style.left = "10px";
-		self.FormElement.style.right = "10px";
+		self.FormElement.style.top = self.hoveredTop;
+		self.FormElement.style.bottom = self.hoveredBottom;
+		self.FormElement.style.left = self.hoveredLeft;
+		self.FormElement.style.right = self.hoveredRight;
 		self.FormElement.style.opacity = self.initialOpacity;
-}
+};
 
 Droparea.FileDrop = function(event, self) {
 	self.callback(event.target.files);
 	Droparea.DragLeave(event, self);
 	self.resetFormElement();
-}
+};
 
 Droparea.prototype.SetBackgroundColor = function(colorStr) {
 	this.color = colorStr;
     this.FormElement.style.background = this.color;
-}
+};
 
 Droparea.prototype.resetFormElement = function() {
   this.FormElement.reset();
-}
+};
