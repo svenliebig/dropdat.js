@@ -22,40 +22,39 @@ function Droparea(element_id, filecallback, options) {
 		this.callback = filecallback;
 	}
 
-	this.bgColor 		= (options.backgroundColor !== undefined ? options.backgroundColor : "white");
-	this.hide 			= (options.hide !== undefined ? options.hide : true);
-	this.initialOpacity = (options.initOpacity !== undefined ? options.initOpacity : "0");
-	this.flowingOpacity = (options.flowOpacity !== undefined ? options.flowOpacity : "0.4");
-	this.borderRadius	= (options.borderRadius !== undefined ? options.borderRadius : "40px");
-	this.initialTop		= (options.initialTop !== undefined ? options.initialTop : "40px");
-	this.initialBottom	= (options.initialBottom !== undefined ? options.initialBottom : "40px");
-	this.initialLeft	= (options.initialLeft !== undefined ? options.initialLeft : "40px");
-	this.initialRight	= (options.initialRight !== undefined ? options.initialRight : "40px");
-	this.hoveredTop		= (options.hoveredTop !== undefined ? options.hoveredTop : "10px");
-	this.hoveredBottom	= (options.hoveredBottom !== undefined ? options.hoveredBottom : "10px");
-	this.hoveredLeft	= (options.hoveredLeft !== undefined ? options.hoveredLeft : "10px");
-	this.hoveredRight	= (options.hoveredRight !== undefined ? options.hoveredRight : "10px");
-	this.text			= (options.text !== undefined ? options.text : "");
-	this.textColor		= (options.textColor !== undefined ? options.textColor : "black");
-	this.fontSize		= (options.fontSize !== undefined ? options.fontSize : "35px");
-	this.fontFamily		= (options.fontFamily !== undefined ? options.fontFamily : "sans-serif");
-
-	this.entered = 0;
+	this.bgColor 		= (options.backgroundColor 	!== undefined ? options.backgroundColor : 'white');
+	this.hide 			= (options.hide 			!== undefined ? options.hide 			: true);
+	this.initialOpacity = (options.initOpacity 		!== undefined ? options.initOpacity 	: '0');
+	this.flowingOpacity = (options.flowOpacity 		!== undefined ? options.flowOpacity 	: '0.4');
+	this.borderRadius	= (options.borderRadius 	!== undefined ? options.borderRadius 	: '40px');
+	this.initialTop		= (options.initialTop 		!== undefined ? options.initialTop 		: '40px');
+	this.initialBottom	= (options.initialBottom 	!== undefined ? options.initialBottom 	: '40px');
+	this.initialLeft	= (options.initialLeft 		!== undefined ? options.initialLeft 	: '40px');
+	this.initialRight	= (options.initialRight 	!== undefined ? options.initialRight 	: '40px');
+	this.hoveredTop		= (options.hoveredTop 		!== undefined ? options.hoveredTop 		: '10px');
+	this.hoveredBottom	= (options.hoveredBottom 	!== undefined ? options.hoveredBottom 	: '10px');
+	this.hoveredLeft	= (options.hoveredLeft 		!== undefined ? options.hoveredLeft 	: '10px');
+	this.hoveredRight	= (options.hoveredRight 	!== undefined ? options.hoveredRight 	: '10px');
+	this.text			= (options.text 			!== undefined ? options.text 			: '');
+	this.textColor		= (options.textColor 		!== undefined ? options.textColor 		: 'black');
+	this.fontSize		= (options.fontSize 		!== undefined ? options.fontSize 		: '35px');
+	this.fontFamily		= (options.fontFamily 		!== undefined ? options.fontFamily 		: 'sans-serif');
+	this.entered 		= 0;
 
 	// Create the Form elements and stuff
-	this.element.style.width = "100%";
-	this.element.style.position = "relative";
-	this.element.style.zIndex = "1";
+	this.element.style.width 	= '100%';
+	this.element.style.position = 'relative';
+	this.element.style.zIndex 	= '1';
 
 	/* Form Element */
-	this.FormElement 					= document.createElement("form"); 
-    this.FormElement.style.zIndex 		= "5";
-	this.FormElement.id 				= "droparea_form";
-	this.FormElement.method 			= "post";
-	this.FormElement.enctype 			= "multipart/form-data";
-    this.FormElement.style.position 	= "absolute";
-    this.FormElement.style.transition 	= "all 0.5s ease";
-    this.FormElement.style.textAlign 	= "center";
+	this.FormElement 					= document.createElement('form'); 
+    this.FormElement.style.zIndex 		= '5';
+	this.FormElement.id 				= 'droparea_form';
+	this.FormElement.method 			= 'post';
+	this.FormElement.enctype 			= 'multipart/form-data';
+    this.FormElement.style.position 	= 'absolute';
+    this.FormElement.style.transition 	= 'all 0.5s ease';
+    this.FormElement.style.textAlign 	= 'center';
     this.FormElement.style.background 	= this.bgColor;
     this.FormElement.style.opacity 		= this.initialOpacity;
     this.FormElement.style.borderRadius = this.borderRadius;
@@ -66,27 +65,27 @@ function Droparea(element_id, filecallback, options) {
     this.FormElement.style.display 		= this.hide === true ? 'none' : 'block';
 
 	/* Input Element */
-	var InputElement 				= document.createElement("input");
-	InputElement.type 				= "file";
-	InputElement.id 				= "droparea_file_input";
-	InputElement.style.position 	= "absolute";
-    InputElement.style.height 		= "100%";
-    InputElement.style.width 		= "100%";
-    InputElement.style.opacity 		= "0";
-    InputElement.style.bottom 		= "0";
-    InputElement.style.top 			= "0";
-    InputElement.style.left 		= "0";
-    InputElement.style.right 		= "0";
+	var InputElement 				= document.createElement('input');
+	InputElement.type 				= 'file';
+	InputElement.id 				= 'droparea_file_input';
+	InputElement.style.position 	= 'absolute';
+    InputElement.style.height 		= '100%';
+    InputElement.style.width 		= '100%';
+    InputElement.style.opacity 		= '0';
+    InputElement.style.bottom 		= '0';
+    InputElement.style.top 			= '0';
+    InputElement.style.left 		= '0';
+    InputElement.style.right 		= '0';
 
 	/* Span Element */
-	this.SpanElement 						= document.createElement("span");
-    this.SpanElement.style.position 		= "absolute";
-    this.SpanElement.style.display 			= "block";
-    this.SpanElement.style.top				= 'calc(50% - 20px)';
-    this.SpanElement.style.height 			= "100%";
-    this.SpanElement.style.width 			= "100%";
-    this.SpanElement.style.zIndex 			= "-1";
-    this.SpanElement.style.transition 		= "all 0.5s ease";
+	this.SpanElement 						= document.createElement('span');
+    this.SpanElement.style.position 		= 'absolute';
+    this.SpanElement.style.display 			= 'block';
+    this.SpanElement.style.top				=  '50%'; //'calc(50% - ' + this.fontSize +')';
+    this.SpanElement.style.width 			= '100%';
+    this.SpanElement.style.zIndex 			= '-1';
+    this.SpanElement.style.transition 		= 'all 0.5s ease';
+    this.SpanElement.style.transform 		= 'translateY(-50%)';
 	this.SpanElement.innerHTML 				= this.text;
     this.SpanElement.style.fontSize 		= this.fontSize;
     this.SpanElement.style.color 			= this.textColor;
@@ -97,15 +96,15 @@ function Droparea(element_id, filecallback, options) {
 	this.element.appendChild(this.FormElement); 
 
 	// Event Listeners
-	this.element.addEventListener ("dragenter", function( event ) {
+	this.element.addEventListener ('dragenter', function( event ) {
 		Droparea.DragEnter(event, self);
 	}, false);
 	
-	this.element.addEventListener ("dragleave", function( event ) {
+	this.element.addEventListener ('dragleave', function( event ) {
 		Droparea.DragLeave(event, self);
 	}, false);
 
-	InputElement.addEventListener ("change", function( event ) {
+	InputElement.addEventListener ('change', function( event ) {
 		Droparea.FileDrop(event, self);
 	}, false);
 
