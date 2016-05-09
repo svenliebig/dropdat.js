@@ -27,14 +27,14 @@ function Droparea(element_id, filecallback, options) {
 	this.initialOpacity = (options.initOpacity !== undefined ? options.initOpacity : "0");
 	this.flowingOpacity = (options.flowOpacity !== undefined ? options.flowOpacity : "0.4");
 	this.borderRadius	= (options.borderRadius !== undefined ? options.borderRadius : "40px");
-	this.initialTop		= (options.initialTop !== undefined ? options.initialTop : "10px");
-	this.initialBottom	= (options.initialBottom !== undefined ? options.initialBottom : "10px");
-	this.initialLeft	= (options.initialLeft !== undefined ? options.initialLeft : "10px");
-	this.initialRight	= (options.initialRight !== undefined ? options.initialRight : "10px");
-	this.hoveredTop		= (options.hoveredTop !== undefined ? options.hoveredTop : "40px");
-	this.hoveredBottom	= (options.hoveredBottom !== undefined ? options.hoveredBottom : "40px");
-	this.hoveredLeft	= (options.hoveredLeft !== undefined ? options.hoveredLeft : "40px");
-	this.hoveredRight	= (options.hoveredRight !== undefined ? options.hoveredRight : "40px");
+	this.initialTop		= (options.initialTop !== undefined ? options.initialTop : "40px");
+	this.initialBottom	= (options.initialBottom !== undefined ? options.initialBottom : "40px");
+	this.initialLeft	= (options.initialLeft !== undefined ? options.initialLeft : "40px");
+	this.initialRight	= (options.initialRight !== undefined ? options.initialRight : "40px");
+	this.hoveredTop		= (options.hoveredTop !== undefined ? options.hoveredTop : "10px");
+	this.hoveredBottom	= (options.hoveredBottom !== undefined ? options.hoveredBottom : "10px");
+	this.hoveredLeft	= (options.hoveredLeft !== undefined ? options.hoveredLeft : "10px");
+	this.hoveredRight	= (options.hoveredRight !== undefined ? options.hoveredRight : "10px");
 	this.text			= (options.text !== undefined ? options.text : "");
 	this.textColor		= (options.textColor !== undefined ? options.textColor : "black");
 	this.fontSize		= (options.fontSize !== undefined ? options.fontSize : "35px");
@@ -59,10 +59,10 @@ function Droparea(element_id, filecallback, options) {
     this.FormElement.style.background 	= this.bgColor;
     this.FormElement.style.opacity 		= this.initialOpacity;
     this.FormElement.style.borderRadius = this.borderRadius;
-    this.FormElement.style.bottom 		= this.hoveredBottom;
-    this.FormElement.style.top 			= this.hoveredTop;
-    this.FormElement.style.left 		= this.hoveredLeft;
-    this.FormElement.style.right 		= this.hoveredRight;
+    this.FormElement.style.bottom 		= this.initialBottom;
+    this.FormElement.style.top 			= this.initialTop;
+    this.FormElement.style.left 		= this.initialLeft;
+    this.FormElement.style.right 		= this.initialRight;
     this.FormElement.style.display 		= this.hide === true ? 'none' : 'block';
 
 	/* Input Element */
@@ -81,9 +81,8 @@ function Droparea(element_id, filecallback, options) {
 	/* Span Element */
 	this.SpanElement 						= document.createElement("span");
     this.SpanElement.style.position 		= "absolute";
-    this.SpanElement.style.display 			= "table-cell";
-    this.SpanElement.style.textAlign		= 'center';
-    this.SpanElement.style.verticalAlign	= 'middle';
+    this.SpanElement.style.display 			= "block";
+    this.SpanElement.style.top				= 'calc(50% - 20px)';
     this.SpanElement.style.height 			= "100%";
     this.SpanElement.style.width 			= "100%";
     this.SpanElement.style.zIndex 			= "-1";
@@ -92,7 +91,6 @@ function Droparea(element_id, filecallback, options) {
     this.SpanElement.style.fontSize 		= this.fontSize;
     this.SpanElement.style.color 			= this.textColor;
     this.SpanElement.style.fontFamily 		= this.fontFamily;
-    this.SpanElement.style.marginTop 		= ((this.element.getClientRects()[0].height / 2) - 55) + "px";
 
 	this.FormElement.appendChild(InputElement);
 	this.FormElement.appendChild(this.SpanElement);
@@ -131,10 +129,10 @@ Droparea.DragEnter = function(event, self) {
 				self.SpanElement.innerHTML = (self.text === "" ? event.dataTransfer.files[0].type : self.text);
 				self.FormElement.style.display='block'; 
 				setTimeout(function() {
-					self.FormElement.style.top = self.initialTop;
-					self.FormElement.style.bottom = self.initialBottom;
-					self.FormElement.style.left = self.initialLeft;
-					self.FormElement.style.right = self.initialRight;
+					self.FormElement.style.top = self.hoveredTop;
+					self.FormElement.style.bottom = self.hoveredBottom;
+					self.FormElement.style.left = self.hoveredLeft;
+					self.FormElement.style.right = self.hoveredRight;
 					self.FormElement.style.opacity = self.flowingOpacity;
 				}, 1);
 			}
@@ -145,10 +143,10 @@ Droparea.DragEnter = function(event, self) {
 				self.SpanElement.innerHTML = (self.text === "" ? "Multiple Files" : self.text);
 				self.FormElement.style.display='block'; 
 				setTimeout(function() {
-					self.FormElement.style.top = self.initialTop;
-					self.FormElement.style.bottom = self.initialBottom;
-					self.FormElement.style.left = self.initialLeft;
-					self.FormElement.style.right = self.initialRight;
+					self.FormElement.style.top = self.hoveredTop;
+					self.FormElement.style.bottom = self.hoveredBottom;
+					self.FormElement.style.left = self.hoveredLeft;
+					self.FormElement.style.right = self.hoveredRight;
 					self.FormElement.style.opacity = self.flowingOpacity;
 				}, 1);
 			}
@@ -164,10 +162,10 @@ Droparea.DragLeave = function(event, self) {
 				self.FormElement.style.display = self.hide === true ? 'none' : 'block';
 			}, 500);
 
-		self.FormElement.style.top = self.hoveredTop;
-		self.FormElement.style.bottom = self.hoveredBottom;
-		self.FormElement.style.left = self.hoveredLeft;
-		self.FormElement.style.right = self.hoveredRight;
+		self.FormElement.style.top = self.initialTop;
+		self.FormElement.style.bottom = self.initialBottom;
+		self.FormElement.style.left = self.initialLeft;
+		self.FormElement.style.right = self.initialRight;
 		self.FormElement.style.opacity = self.initialOpacity;
 };
 
