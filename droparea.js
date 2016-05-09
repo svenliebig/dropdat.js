@@ -136,7 +136,7 @@ Droparea.DragLeave = function(event, self) {
 Droparea.FileDrop = function(event, self) {
 	self.callback(event.target.files);
 	Droparea.DragLeave(event, self);
-	//self.resetFormElement();
+	self.resetFormElement();
 }
 
 Droparea.prototype.SetBackgroundColor = function(colorStr) {
