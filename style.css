@@ -1,11 +1,4 @@
-body {
-  background: aliceblue;
-}
-
-html {
-}
-
-#svens_droparea {
+#droparea {
   background: black;
   height: 700px;
 }

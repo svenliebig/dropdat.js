@@ -1,4 +1,4 @@
-function Droparea(element_id, filecallback, options) {
+function Dropdat(element_id, filecallback, options) {
 	var self = this;
 	this.element = document.getElementById(element_id);
 	this.body_element = document.getElementsByTagName("body")[0];
@@ -49,7 +49,7 @@ function Droparea(element_id, filecallback, options) {
 	/* Form Element */
 	this.FormElement 					= document.createElement('form'); 
     this.FormElement.style.zIndex 		= '5';
-	this.FormElement.id 				= 'droparea_form';
+	this.FormElement.id 				= 'dropdat_form';
 	this.FormElement.method 			= 'post';
 	this.FormElement.enctype 			= 'multipart/form-data';
     this.FormElement.style.position 	= 'absolute';
@@ -67,7 +67,7 @@ function Droparea(element_id, filecallback, options) {
 	/* Input Element */
 	var InputElement 				= document.createElement('input');
 	InputElement.type 				= 'file';
-	InputElement.id 				= 'droparea_file_input';
+	InputElement.id 				= 'dropdat_file_input';
 	InputElement.style.position 	= 'absolute';
     InputElement.style.height 		= '100%';
     InputElement.style.width 		= '100%';
@@ -97,29 +97,28 @@ function Droparea(element_id, filecallback, options) {
 
 	// Event Listeners
 	this.element.addEventListener ('dragenter', function( event ) {
-		Droparea.DragEnter(event, self);
+		Dropdat.DragEnter(event, self);
 	}, false);
 	
 	this.element.addEventListener ('dragleave', function( event ) {
-		Droparea.DragLeave(event, self);
+		Dropdat.DragLeave(event, self);
 	}, false);
 
 	InputElement.addEventListener ('change', function( event ) {
-		Droparea.FileDrop(event, self);
+		Dropdat.FileDrop(event, self);
 	}, false);
 
 }
 
-Droparea.prototype.IsElement = function() {
+Dropdat.prototype.IsElement = function() {
 	return this.element !== null;
 };
 
-Droparea.prototype.IsDivElement = function() {
+Dropdat.prototype.IsDivElement = function() {
 	return this.element.tagName == "DIV";
 };
 
-Droparea.DragEnter = function(event, self) {
-	console.log("enter");
+Dropdat.DragEnter = function(event, self) {
 	if (event.dataTransfer.types) {
 		if (event.dataTransfer.files.length == 1) {
 			if (event.dataTransfer.types[0] == "Files") {
@@ -153,8 +152,7 @@ Droparea.DragEnter = function(event, self) {
 	}
 };
 
-Droparea.DragLeave = function(event, self) {
-	console.log("leave");
+Dropdat.DragLeave = function(event, self) {
 	self.entered--;
 		if (!self.entered) 
 			self.DisplayTimeout = setTimeout(function() {
@@ -168,17 +166,17 @@ Droparea.DragLeave = function(event, self) {
 		self.FormElement.style.opacity = self.initialOpacity;
 };
 
-Droparea.FileDrop = function(event, self) {
+Dropdat.FileDrop = function(event, self) {
 	self.callback(event.target.files);
-	Droparea.DragLeave(event, self);
+	Dropdat.DragLeave(event, self);
 	self.resetFormElement();
 };
 
-Droparea.prototype.SetBackgroundColor = function(colorStr) {
+Dropdat.prototype.SetBackgroundColor = function(colorStr) {
 	this.color = colorStr;
     this.FormElement.style.background = this.color;
 };
 
-Droparea.prototype.resetFormElement = function() {
+Dropdat.prototype.resetFormElement = function() {
   this.FormElement.reset();
 };

@@ -7,10 +7,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta name='description' content=''><meta name='author' content=''>
     <link rel='stylesheet' href='style.css'>
-    <script src="droparea.js"></script>
+    <script src='dropdat.js'></script>
 </head>
 <body> 
-    <div id="svens_droparea">
+    <div id='droparea' style='background: black; height: 700px;'>
     </div>
 
     <script>
@@ -19,14 +19,14 @@
     };
 
     var options = {
-        "color": "#ff0000", 
-        "hide": false, 
-        "initOpacity": "1", 
-        "text": "drop files",
-        "fontSize": "55px"
+        'color': '#ff0000', 
+        'hide': true, 
+        'initOpacity': '0', 
+        'text': '',
+        'fontSize': '35px'
     };
 
-    var test = new Droparea("svens_droparea", callback, options);
+    var test = new Dropdat('droparea', callback, options);
     </script>
 </body>
 </html>
