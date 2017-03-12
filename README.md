@@ -55,9 +55,9 @@ var options = {
 	'hoveredBottom'	: '40px',
 	'hoveredLeft'	: '40px',
 	'hoveredRight'	: '40px',
-	'text'			: '',
-	'textColor'		: 'black',
-	'fontSize'		: '35px',
+	'text'		: '',
+	'textColor'	: 'black',
+	'fontSize'	: '35px',
 	'fontFamily'	: 'sans-serif'
 }
 ```
